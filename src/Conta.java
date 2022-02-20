@@ -5,6 +5,10 @@ public class Conta {
     private String numeroCartao;
     private BigDecimal saldo = new BigDecimal("0.00");
     private BigDecimal poupanca = new BigDecimal("0.00");
+    private String senha;
+    int numeroTeste = 100000;
+    private String numeroString;
+
 
     public Conta() {
     }
@@ -19,8 +23,10 @@ public class Conta {
         return numeroCartao;
     }
 
-    public void setNumeroCartao(String conta) {
-        this.numeroCartao = conta;
+    public void setNumeroCartao(){
+        numeroString = Integer.toString(numeroTeste);
+        this.numeroCartao = numeroString;
+        numeroTeste++;
     }
 
     public BigDecimal getSaldo() {
@@ -47,4 +53,5 @@ public class Conta {
                 "poupanca= R$ " + poupanca;
 
     }
+
 }

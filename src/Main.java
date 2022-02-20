@@ -9,7 +9,7 @@ public class Main {
 
     }
 
-    public static void dadosPessoas() {
+    public static void dadosPessoas()  {
         Scanner sc = new Scanner(System.in);
         Cliente cliente;
         List<Cliente> listaClientes = new ArrayList<Cliente>();
@@ -23,11 +23,14 @@ public class Main {
         String bairro1;
         String cidade1;
         String cep1;
+        String testeCartao;
+        boolean achou;
+        int continuar;
 
         do {
             System.out.println("## Menu ##");
             System.out.println("Opção 1 - Cadastrar Cliente");
-            System.out.println("Opção 2 - Menu Contas");
+            System.out.println("Opção 2 - Menu Conta");
             System.out.println("Opção 0 - Sair do programa");
             System.out.println("_______________________");
 
@@ -144,17 +147,41 @@ public class Main {
                 }while (!ValidaCep.isCep(cep1));
                 cliente.setEndereco(endereco);
 
+                conta.setNumeroCartao();
                 System.out.println("Número do Cartão gerado: " + conta.getNumeroCartao());
-                System.out.println("Pressione qualquer tecla para continuar");
-                sc.next();
+                System.out.println("Pressione Enter para continuar");
+                sc.nextLine();
                 cliente.setConta(conta);
                 listaClientes.add(cliente);
                 System.out.println("Cliente Cadastrado!");
                 System.out.println(cliente);
 
             } else if (opcao == 2) {
-                System.out.println("Informe o Número do Cartão: ");
+                do {
+                    System.out.println("Informe o Número do Cartão: ");
+                    testeCartao = sc.nextLine();
 
+                    achou = false;
+                        for (int i = 0; i < listaClientes.size(); i++) {
+                                if (listaClientes.get(i).getConta().getNumeroCartao().contains(testeCartao)) {
+                                    listaClientes.get(i).getConta();
+                                    System.out.println("Conta Encontrada");
+                                    achou = true;
+                                } else {
+                                    System.out.println("Conta não encontrada!" + "\n");
+                                    do {
+                                        System.out.println("Deseja tentar novamente?" + "\n" + "(1) para continuar e (2) para voltar ao Menu Inicial");
+                                        continuar = Integer.parseInt(sc.nextLine());
+                                        if (continuar != 1 && continuar != 2){
+                                        System.err.println("Opção inválida");
+                                        }else;
+                                    }while (continuar != 1 && continuar != 2);
+                                }
+                    }
+                }while (!achou);
+
+                System.out.println("Digite a Senha: ");
+                break;
             }
         } while (opcao != 0);
 
