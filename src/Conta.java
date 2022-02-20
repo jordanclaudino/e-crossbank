@@ -4,19 +4,11 @@ public class Conta {
 
     private String numeroCartao;
     private BigDecimal saldo = new BigDecimal("0.00");
-    private BigDecimal poupanca = new BigDecimal("0.00");
-    private String senha;
-    int numeroTeste = 100000;
+    int numeroTeste;
     private String numeroString;
 
 
     public Conta() {
-    }
-
-    public Conta(String numero, BigDecimal saldo, BigDecimal poupanca) {
-        this.numeroCartao = numero;
-        this.saldo = saldo;
-        this.poupanca = poupanca;
     }
 
     public String getNumeroCartao() {
@@ -37,20 +29,25 @@ public class Conta {
         this.saldo = saldo;
     }
 
-    public BigDecimal getPoupanca() {
-        return poupanca;
+    public void depositar (BigDecimal valor){
+        this.setSaldo(this.getSaldo().add(valor));
     }
 
-    public void setPoupanca(BigDecimal poupanca) {
-        this.poupanca = poupanca;
+    public boolean sacar (BigDecimal valor) {
+        if(this.getSaldo().compareTo(valor) == 0 || this.getSaldo().compareTo(valor) == 1){
+            this.setSaldo(this.getSaldo().subtract(valor));
+            return true;
+        }
+        return false;
+
+
+
     }
 
     @Override
     public String toString() {
         return "Conta" + '\n' +
-                "numero= " + numeroCartao + '\n' +
-                "saldo= R$ " + saldo + '\n' +
-                "poupanca= R$ " + poupanca;
+                "numero= " + numeroCartao + '\n';
 
     }
 

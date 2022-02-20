@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +15,8 @@ public class Main {
         Cliente cliente;
         List<Cliente> listaClientes = new ArrayList<Cliente>();
         int opcao = 0;
-        int opcaoDocumento;
+        int opcaoDocumento = 0;
+        int opcaoCliente = 0;
         String CPF;
         String CNPJ;
         String datanasc;
@@ -26,9 +28,10 @@ public class Main {
         String testeCartao;
         boolean achou;
         int continuar;
+        Conta clienteMovimento = null;
+        BigDecimal testeSaque;
 
         do {
-            System.out.println("## Menu ##");
             System.out.println("Opção 1 - Cadastrar Cliente");
             System.out.println("Opção 2 - Menu Conta");
             System.out.println("Opção 0 - Sair do programa");
@@ -160,11 +163,10 @@ public class Main {
                 do {
                     System.out.println("Informe o Número do Cartão: ");
                     testeCartao = sc.nextLine();
-
                     achou = false;
                         for (int i = 0; i < listaClientes.size(); i++) {
-                                if (listaClientes.get(i).getConta().getNumeroCartao().contains(testeCartao)) {
-                                    listaClientes.get(i).getConta();
+                                if (listaClientes.get(i).getConta().getNumeroCartao().equals(testeCartao)) {
+                                    clienteMovimento = listaClientes.get(i).getConta();
                                     System.out.println("Conta Encontrada");
                                     achou = true;
                                 } else {
@@ -179,9 +181,35 @@ public class Main {
                                 }
                     }
                 }while (!achou);
+                System.out.println(clienteMovimento);
+                System.out.println("Escolha uma opção:");
+                System.out.println("Opção 1 - Depósito");
+                System.out.println("Opção 2 - Saque");
+                System.out.println("Opção 3 - Verifica Saldo");
+                System.out.println("Opção 0 - Sair do Menu Clientes");
+                System.out.println("_______________________");
 
-                System.out.println("Digite a Senha: ");
-                break;
+                opcaoCliente = Integer.parseInt(sc.nextLine());
+                do{
+                    if(opcaoCliente == 1){
+                        System.out.println("Informe valor para depositar: ");
+                        clienteMovimento.depositar(sc.nextBigDecimal());
+                        System.out.println("Valor depositado!" + "\n" + "Saldo atual: " + clienteMovimento.getSaldo());
+                        break;
+                    } else if (opcaoCliente == 2){
+                        System.out.println("Informe valor para sacar: ");
+                        testeSaque = sc.nextBigDecimal();
+                        if(clienteMovimento.sacar(testeSaque)){
+                            System.out.println("Valor sacado!" + "\n" + "Saldo atual: " + clienteMovimento.getSaldo());
+                            break;
+                        }else
+                            System.err.println("Saldo insuficiente");
+                            break;
+                    } else if (opcaoCliente == 3){
+                        System.out.println("Saldo atual: " + clienteMovimento.getSaldo());
+                        break;
+                    };
+                }while(opcaoCliente != 0);
             }
         } while (opcao != 0);
 
