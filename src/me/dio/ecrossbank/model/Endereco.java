@@ -1,3 +1,5 @@
+package me.dio.ecrossbank.model;
+
 public class Endereco {
 
     private String logradouro;
@@ -69,7 +71,7 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "Endereco{" +
+        return "me.dio.ecrossbank.model.Endereco{" +
                 "logradouro='" + logradouro + '\'' +
                 ", numero='" + numero + '\'' +
                 ", complemento='" + complemento + '\'' +

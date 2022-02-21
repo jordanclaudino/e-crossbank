@@ -1,3 +1,5 @@
+package me.dio.ecrossbank.validation;
+
 public class ValidaEstado {
 
     public static boolean isEstado(String Estado){

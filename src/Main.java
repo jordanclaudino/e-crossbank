@@ -1,3 +1,8 @@
+import me.dio.ecrossbank.model.Cliente;
+import me.dio.ecrossbank.model.Conta;
+import me.dio.ecrossbank.model.Endereco;
+import me.dio.ecrossbank.validation.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +34,8 @@ public class Main {
         boolean achou;
         int continuar;
         Conta clienteMovimento = null;
-        BigDecimal testeSaque;
+        float testeSaque;
+        int numeroTeste = 100000;
 
         do {
             System.out.println("Opção 1 - Cadastrar Cliente");
@@ -150,7 +156,8 @@ public class Main {
                 }while (!ValidaCep.isCep(cep1));
                 cliente.setEndereco(endereco);
 
-                conta.setNumeroCartao();
+                conta.setNumeroCartao(numeroTeste);
+                numeroTeste++;
                 System.out.println("Número do Cartão gerado: " + conta.getNumeroCartao());
                 System.out.println("Pressione Enter para continuar");
                 sc.nextLine();
@@ -169,7 +176,7 @@ public class Main {
                                     clienteMovimento = listaClientes.get(i).getConta();
                                     System.out.println("Conta Encontrada");
                                     achou = true;
-                                } else {
+                                } else {/*
                                     System.out.println("Conta não encontrada!" + "\n");
                                     do {
                                         System.out.println("Deseja tentar novamente?" + "\n" + "(1) para continuar e (2) para voltar ao Menu Inicial");
@@ -178,38 +185,35 @@ public class Main {
                                         System.err.println("Opção inválida");
                                         }else;
                                     }while (continuar != 1 && continuar != 2);
-                                }
+                                */}
                     }
                 }while (!achou);
                 System.out.println(clienteMovimento);
-                System.out.println("Escolha uma opção:");
-                System.out.println("Opção 1 - Depósito");
-                System.out.println("Opção 2 - Saque");
-                System.out.println("Opção 3 - Verifica Saldo");
-                System.out.println("Opção 0 - Sair do Menu Clientes");
-                System.out.println("_______________________");
-
-                opcaoCliente = Integer.parseInt(sc.nextLine());
                 do{
+                    System.out.println("Escolha uma opção:");
+                    System.out.println("Opção 1 - Depósito");
+                    System.out.println("Opção 2 - Saque");
+                    System.out.println("Opção 3 - Verifica Saldo");
+                    System.out.println("Opção 0 - Sair do Menu Clientes");
+                    System.out.println("_______________________");
+
+                    opcaoCliente = Integer.parseInt(sc.nextLine());
                     if(opcaoCliente == 1){
                         System.out.println("Informe valor para depositar: ");
-                        clienteMovimento.depositar(sc.nextBigDecimal());
-                        System.out.println("Valor depositado!" + "\n" + "Saldo atual: " + clienteMovimento.getSaldo());
-                        break;
-                    } else if (opcaoCliente == 2){
+                        clienteMovimento.depositar(Float.valueOf(sc.nextLine()));
+                        System.out.println("Valor depositado!" + "\n" + "Saldo atual: " + clienteMovimento.getSaldo() + "\n");
+                    } if (opcaoCliente == 2){
                         System.out.println("Informe valor para sacar: ");
-                        testeSaque = sc.nextBigDecimal();
+                        testeSaque = Float.valueOf(sc.nextLine());
                         if(clienteMovimento.sacar(testeSaque)){
-                            System.out.println("Valor sacado!" + "\n" + "Saldo atual: " + clienteMovimento.getSaldo());
-                            break;
+                            System.out.println("Valor sacado!" + "\n" + "Saldo atual: " + clienteMovimento.getSaldo() + "\n");
                         }else
-                            System.err.println("Saldo insuficiente");
-                            break;
-                    } else if (opcaoCliente == 3){
+                            System.out.println("Saldo insuficiente!");
+                    } if (opcaoCliente == 3){
                         System.out.println("Saldo atual: " + clienteMovimento.getSaldo());
-                        break;
-                    };
+                    }
                 }while(opcaoCliente != 0);
+
             }
         } while (opcao != 0);
 

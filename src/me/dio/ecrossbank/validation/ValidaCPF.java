@@ -1,3 +1,5 @@
+package me.dio.ecrossbank.validation;
+
 import java.util.InputMismatchException;
 
 public class ValidaCPF {

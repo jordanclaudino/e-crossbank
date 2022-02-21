@@ -1,3 +1,5 @@
+package me.dio.ecrossbank.validation;
+
 public class ValidaCep {
     public static boolean isCep(String Cep) {
         if (Cep.length() == 8) {

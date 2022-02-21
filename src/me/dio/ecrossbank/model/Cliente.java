@@ -1,3 +1,5 @@
+package me.dio.ecrossbank.model;
+
 public class Cliente {
 
     private String nome;
@@ -60,7 +62,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "me.dio.ecrossbank.model.Cliente{" +
                 "nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", cnpj='" + cnpj + '\'' +
